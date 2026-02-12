@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
     <style>
         :root {
-            /* Standard Theme Default */
             --cover-color: #1a202c;
             --paper-bg: #fdfaf5;
             --line-color: #e2d9c8;
@@ -59,7 +58,6 @@
             transition: box-shadow 0.3s ease;
         }
 
-        /* --- CSS Japanese Flag --- */
         .jp-flag {
             display: inline-block;
             width: 18px;
@@ -81,7 +79,6 @@
             border-radius: 50%;
         }
 
-        /* --- Custom Loader --- */
         .loader {
             width: 40px;
             height: 20px;
@@ -113,68 +110,31 @@
             58%,92% {background-position: 0   0   , 50% 0   , 100% 0}
             100%    {background-position: 0   0   , 50% 0   , 100% 100%}
         }
-        @keyframes l4-1 {
-            100% {left:calc(100% - 8px)}
-        }
-        @keyframes l4-2 {
-            100% {top:-0.1px}
-        }
+        @keyframes l4-1 { 100% {left:calc(100% - 8px)} }
+        @keyframes l4-2 { 100% {top:-0.1px} }
 
-        .page-content {
-            padding: 25px 0 20px 0;
-            flex-grow: 1;
-            z-index: 2;
-            position: relative;
-        }
-
-        .crest-background {
-            position: absolute;
-            right: 15px;
-            bottom: 70px;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.5;
-        }
-        .crest-background svg { width: 140px; height: auto; fill: var(--line-color); opacity: 0.3; }
-
+        .page-content { padding: 25px 0 20px 0; flex-grow: 1; z-index: 2; position: relative; }
         .jp-header {
-            font-family: 'Shippori Mincho', serif;
-            border-bottom: 1.5px solid var(--accent-gold);
-            margin: 0 35px 20px 35px;
-            padding-bottom: 8px;
-            font-size: 0.85rem;
-            color: var(--accent-gold);
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            letter-spacing: 0.1em;
-            font-weight: 700;
+            font-family: 'Shippori Mincho', serif; border-bottom: 1.5px solid var(--accent-gold);
+            margin: 0 35px 20px 35px; padding-bottom: 8px; font-size: 0.85rem; color: var(--accent-gold);
+            display: flex; justify-content: space-between; align-items: baseline; letter-spacing: 0.1em; font-weight: 700;
         }
 
         .tab-btn {
-            flex: 1; padding: 12px 0; font-size: 0.6rem; font-weight: 800;
-            color: var(--accent-soft); border-bottom: 1px solid var(--line-color);
-            transition: all 0.3s ease; letter-spacing: 0.1em; background: rgba(0,0,0,0.02);
+            flex: 1; padding: 12px 0; font-size: 0.6rem; font-weight: 800; color: var(--accent-soft);
+            border-bottom: 1px solid var(--line-color); transition: all 0.3s ease; letter-spacing: 0.1em; background: rgba(0,0,0,0.02);
         }
         .tab-active { color: var(--cover-color); background: transparent; border-bottom: 2.5px solid var(--cover-color); }
 
-        .list-row {
-            display: flex; align-items: center; border-bottom: 1px solid var(--line-color);
-            padding: 12px 30px; transition: background 0.2s; position: relative; z-index: 5;
-        }
-
+        .list-row { display: flex; align-items: center; border-bottom: 1px solid var(--line-color); padding: 12px 30px; transition: background 0.2s; position: relative; z-index: 5; }
         .day-num { width: 35px; font-weight: 800; font-size: 1.1rem; }
         .day-name { width: 40px; font-size: 0.7rem; font-weight: 800; }
         .day-almanac { width: 110px; font-size: 0.6rem; color: var(--accent-gold); font-weight: 700; line-height: 1.2; overflow: hidden; }
 
-        .row-input {
-            flex-grow: 1; background: transparent; border: none; outline: none;
-            font-size: 0.9rem; color: var(--text-main); font-weight: 400; padding: 2px 0;
-        }
+        .row-input { flex-grow: 1; background: transparent; border: none; outline: none; font-size: 0.9rem; color: var(--text-main); font-weight: 400; padding: 2px 0; }
 
         .diary-area {
-            font-family: 'Shippori Mincho', serif; line-height: 2.2;
-            background-size: 100% 2.2em;
+            font-family: 'Shippori Mincho', serif; line-height: 2.2; background-size: 100% 2.2em;
             background-image: linear-gradient(var(--line-color) 0.5px, transparent 0.5px);
             background-attachment: local; padding-left: 5px; position: relative; z-index: 5; min-height: 200px;
         }
@@ -182,47 +142,20 @@
         .is-sunday, .is-holiday { color: var(--holiday-red) !important; }
         .is-saturday { color: var(--saturday-blue) !important; }
         .is-anniversary { color: var(--anniversary-color) !important; }
-
         .is-today { background-color: rgba(182, 155, 92, 0.08) !important; border-left: 4px solid var(--accent-gold) !important; position: relative; }
         
         .daily-date-display { font-family: 'Shippori Mincho', serif; cursor: pointer; letter-spacing: 0.05em; }
 
-        /* Auth UI */
-        .auth-card {
-            background: var(--paper-bg); padding: 40px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%; max-width: 400px;
-        }
-        .auth-input {
-            width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line-color);
-            border-radius: 8px; font-size: 0.9rem; outline: none; background: #fff;
-        }
-        .auth-btn {
-            width: 100%; padding: 14px; background: var(--cover-color); color: #fff;
-            border-radius: 8px; font-weight: 800; letter-spacing: 0.1em; margin-top: 5px;
-        }
-        .google-btn {
-            width: 100%; padding: 12px; background: #fff; color: #555; border: 1px solid #ddd;
-            border-radius: 8px; font-weight: 600; display: flex; align-items: center;
-            justify-content: center; gap: 10px; margin-top: 15px; font-size: 0.85rem;
-        }
+        .auth-card { background: var(--paper-bg); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%; max-width: 400px; }
+        .auth-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line-color); border-radius: 8px; font-size: 0.9rem; outline: none; background: #fff; }
+        .auth-btn { width: 100%; padding: 14px; background: var(--cover-color); color: #fff; border-radius: 8px; font-weight: 800; letter-spacing: 0.1em; margin-top: 5px; }
+        .google-btn { width: 100%; padding: 12px; background: #fff; color: #555; border: 1px solid #ddd; border-radius: 8px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; font-size: 0.85rem; }
 
-        .theme-swatch {
-            width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.2s; position: relative;
-        }
+        .theme-swatch { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.2s; position: relative; }
         .theme-swatch.active { transform: scale(1.2); box-shadow: 0 0 0 2px var(--accent-gold); }
 
-        .anniversary-item {
-            display: flex; gap: 10px; align-items: center; background: rgba(0,0,0,0.03);
-            padding: 8px 12px; border-radius: 6px; margin-bottom: 8px;
-        }
-
-        /* Header Objective */
         .header-obj-block { flex-grow: 1; margin-left: 1rem; position: relative; }
-        .header-obj-input {
-            width: 100%; background: rgba(0,0,0,0.03); border: none; border-left: 2px solid var(--accent-gold);
-            color: var(--text-main); font-size: 0.9rem; font-weight: 700; padding: 6px 10px; outline: none;
-        }
+        .header-obj-input { width: 100%; background: rgba(0,0,0,0.03); border: none; border-left: 2px solid var(--accent-gold); color: var(--text-main); font-size: 0.9rem; font-weight: 700; padding: 6px 10px; outline: none; }
         .header-obj-label { position: absolute; top: -12px; left: 4px; font-size: 6px; font-weight: 900; color: var(--accent-gold); opacity: 0.7; }
 
         .hidden { display: none !important; }
@@ -233,16 +166,16 @@
 <body>
 
     <!-- Loading Overlay -->
-    <div id="loading" class="loading-overlay fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white">
+    <div id="loading" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white">
         <div class="flex flex-col items-center gap-8">
             <div class="loader"></div>
-            <div class="text-accent-gold font-bold tracking-[0.4em] animate-pulse text-[10px]">SYNCHRONIZING...</div>
+            <div id="loading-text" class="text-accent-gold font-bold tracking-[0.4em] animate-pulse text-[10px]">INITIALIZING...</div>
         </div>
     </div>
 
-    <div class="sync-status" id="sync-status">OFFLINE</div>
+    <div class="sync-status fixed top-2 right-2 text-[8px] opacity-30 z-[100]" id="sync-status">OFFLINE</div>
 
-    <div class="notebook-container">
+    <div class="notebook-container w-full max-w-[520px] mx-auto">
         
         <!-- Auth View -->
         <div id="view-auth" class="hidden h-screen flex items-center justify-center px-6">
@@ -251,21 +184,10 @@
                     <h1 class="font-serif text-xl font-bold tracking-[0.3em] text-cover-color mb-1 uppercase">Cloud Planner</h1>
                     <div class="h-1 w-12 bg-accent-gold mx-auto"></div>
                 </div>
-                
-                <h2 id="auth-title" class="text-xs font-black mb-6 tracking-widest text-accent-soft uppercase text-center">Authentication</h2>
-                
                 <input type="email" id="auth-email" class="auth-input" placeholder="Email Address">
                 <input type="password" id="auth-password" class="auth-input" placeholder="Password">
-                
                 <button onclick="window.handleAuth()" id="auth-submit-btn" class="auth-btn uppercase">Login</button>
-                
-                <div class="flex items-center gap-3 my-5 opacity-20"><div class="h-px bg-black flex-grow"></div><span class="text-[8px] font-bold">OR</span><div class="h-px bg-black flex-grow"></div></div>
-
-                <button onclick="window.handleGoogleAuth()" class="google-btn">
-                    <svg width="16" height="16" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285f4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184L12.048 13.56c-.408.273-.93.432-1.548.432-1.191 0-2.199-.806-2.557-1.889H4.912v2.335A8.997 8.997 0 0 0 9 18z" fill="#34a853"/><path d="M6.443 12.103c-.188-.564-.296-1.166-.296-1.79 0-.624.108-1.226.296-1.79V6.188H4.912a8.992 8.992 0 0 0 0 8.251l1.531-2.336z" fill="#fbbc05"/><path d="M9 4.009c1.322 0 2.509.454 3.441 1.345l2.582-2.58C13.463 1.155 11.427 0 9 0A8.997 8.997 0 0 0 4.912 2.335L6.443 4.67c.358-1.083 1.366-1.889 2.557-1.889z" fill="#ea4335"/></svg>
-                    Google
-                </button>
-
+                <button onclick="window.handleGoogleAuth()" class="google-btn">Google Sign-in</button>
                 <p id="auth-error-msg" class="text-[10px] text-red-500 mt-4 text-center h-4"></p>
                 <div onclick="window.toggleAuthMode()" id="auth-switch-text" class="text-[10px] text-accent-soft text-center mt-6 cursor-pointer underline">新規登録はこちら</div>
             </div>
@@ -273,19 +195,17 @@
 
         <!-- Main UI -->
         <div id="app-main" class="notebook hidden">
-            
             <div id="main-nav" class="flex bg-white/50 sticky top-0 z-20 border-b border-gray-100">
-                <button onclick="switchView('monthly')" id="tab-monthly" class="tab-btn">MONTHLY</button>
-                <button onclick="switchView('weekly')" id="tab-weekly" class="tab-btn">WEEKLY</button>
-                <button onclick="switchView('daily')" id="tab-daily" class="tab-btn">DAILY</button>
-                <button onclick="switchView('settings')" id="tab-settings" class="tab-btn">CONFIG</button>
+                <button onclick="switchView('monthly')" class="tab-btn" id="tab-monthly">MONTHLY</button>
+                <button onclick="switchView('weekly')" class="tab-btn" id="tab-weekly">WEEKLY</button>
+                <button onclick="switchView('daily')" class="tab-btn" id="tab-daily">DAILY</button>
+                <button onclick="switchView('settings')" class="tab-btn" id="tab-settings">CONFIG</button>
             </div>
 
             <div class="page-content" id="page-body">
-                <div class="crest-background"><svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="1" fill="none" opacity="0.1"/></svg></div>
                 <div class="jp-header" id="jp-header-text"></div>
-
-                <!-- Daily View -->
+                
+                <!-- Daily -->
                 <div id="view-daily" class="px-10">
                     <div class="flex justify-between items-end border-b border-gray-300 pb-3 mb-2">
                         <div class="flex items-baseline relative shrink-0">
@@ -299,109 +219,77 @@
                         <div id="daily-holiday-name" class="font-bold text-[9px] text-holiday-red mb-1 shrink-0 ml-1"></div>
                     </div>
                     <div id="daily-almanac" class="flex gap-4 font-serif text-[0.8rem] text-accent-gold font-bold mb-8"></div>
-
-                    <div class="mb-10">
-                        <h3 class="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Missions</h3>
-                        <div id="todo-list"></div>
-                        <button onclick="window.addTodo()" class="btn-action mt-2">+ NEW TASK</button>
-                    </div>
-
-                    <div>
-                        <h3 class="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Reflections</h3>
-                        <textarea id="note-area" class="diary-area w-full text-lg bg-transparent border-none outline-none resize-none overflow-hidden" placeholder="..." oninput="window.autoResize(this); window.debouncedSave()"></textarea>
-                    </div>
+                    <div class="mb-10"><h3 class="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Missions</h3><div id="todo-list"></div><button onclick="window.addTodo()" class="btn-action mt-2">+ NEW TASK</button></div>
+                    <div><h3 class="text-[8px] font-black text-gray-400 uppercase tracking-[0.3em] mb-4">Reflections</h3><textarea id="note-area" class="diary-area w-full text-lg bg-transparent border-none outline-none resize-none overflow-hidden" placeholder="..." oninput="window.autoResize(this); window.debouncedSave()"></textarea></div>
                 </div>
 
-                <!-- Weekly View -->
+                <!-- Weekly -->
                 <div id="view-weekly" class="hidden px-8">
-                    <div class="flex justify-between items-center mb-6">
-                        <button onclick="changeWeek(-1)" class="text-accent-soft p-2">◀</button>
-                        <h2 id="weekly-title" class="text-xs font-bold tracking-widest text-accent-soft"></h2>
-                        <button onclick="changeWeek(1)" class="text-accent-soft p-2">▶</button>
-                    </div>
+                    <div class="flex justify-between items-center mb-6"><button onclick="changeWeek(-1)" class="p-2">◀</button><h2 id="weekly-title" class="text-xs font-bold tracking-widest text-accent-soft"></h2><button onclick="changeWeek(1)" class="p-2">▶</button></div>
                     <div id="weekly-container" class="space-y-4"></div>
                 </div>
 
-                <!-- Monthly View -->
+                <!-- Monthly -->
                 <div id="view-monthly" class="hidden">
-                    <div class="px-10 mb-6 flex justify-between items-center">
-                        <button onclick="changeMonth(-1)" class="text-accent-soft">◀</button>
-                        <h2 id="monthly-title" class="text-lg font-black border-b-2 border-accent-gold pb-1 px-4"></h2>
-                        <button onclick="changeMonth(1)" class="text-accent-soft">▶</button>
-                    </div>
+                    <div class="px-10 mb-6 flex justify-between items-center"><button onclick="changeMonth(-1)" class="text-accent-soft">◀</button><h2 id="monthly-title" class="text-lg font-black border-b-2 border-accent-gold pb-1 px-4"></h2><button onclick="changeMonth(1)" class="text-accent-soft">▶</button></div>
                     <div id="monthly-list-container"></div>
                 </div>
 
-                <!-- Settings View -->
+                <!-- Config -->
                 <div id="view-settings" class="hidden px-10 pt-5">
-                    <div class="mb-10">
-                        <h3 class="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6">COLOR THEMES</h3>
-                        <div class="grid grid-cols-5 gap-y-6 gap-x-2" id="theme-selector">
-                            <div class="theme-swatch active" onclick="setTheme('standard')" style="background: #1a202c;" title="古代紫"></div>
-                            <div class="theme-swatch" onclick="setTheme('midnight')" style="background: #1a2639;" title="月読"></div>
-                            <div class="theme-swatch" onclick="setTheme('forest')" style="background: #2d4a22;" title="常磐"></div>
-                            <div class="theme-swatch" onclick="setTheme('sakura')" style="background: #fec5bb;" title="小春"></div>
-                            <div class="theme-swatch" onclick="setTheme('akane')" style="background: #7a1a1a;" title="茜"></div>
-                            <div class="theme-swatch" onclick="setTheme('sumizome')" style="background: #000000;" title="墨染"></div>
-                            <div class="theme-swatch" onclick="setTheme('asagi')" style="background: #008b8b;" title="浅葱"></div>
-                            <div class="theme-swatch" onclick="setTheme('yamabuki')" style="background: #d97706;" title="山吹"></div>
-                            <div class="theme-swatch" onclick="setTheme('kachiiro')" style="background: #0d1b2a;" title="勝色"></div>
-                            <div class="theme-swatch" onclick="setTheme('uguisu')" style="background: #606c38;" title="鶯"></div>
-                        </div>
-                    </div>
-
-                    <div class="mb-10">
-                        <h3 class="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6">ANNIVERSARIES</h3>
-                        <div id="anniversary-list" class="mb-6"></div>
-                        <div class="bg-black/5 p-4 rounded flex flex-col gap-3">
-                            <div class="flex gap-2">
-                                <input type="text" id="anni-label" class="bg-white border-none rounded p-2 text-xs flex-grow" placeholder="例：誕生日">
-                                <input type="text" id="anni-date" class="bg-white border-none rounded p-2 text-xs w-24" placeholder="MM-DD">
-                            </div>
-                            <button onclick="window.addAnniversary()" class="bg-accent-gold text-white font-bold py-2 rounded text-[10px] tracking-widest">+ ADD ANNIVERSARY</button>
-                        </div>
-                    </div>
-
-                    <div class="mt-20 border-t border-gray-200 pt-6 text-center">
-                        <button onclick="window.handleLogout()" class="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Logout</button>
-                        <p class="text-[7px] text-gray-400 uppercase tracking-widest">User: <span id="current-user-email">...</span></p>
-                    </div>
+                    <div class="mb-10"><h3 class="text-[9px] font-black text-gray-400 uppercase tracking-[0.3em] mb-6 text-center">THEMES</h3><div class="grid grid-cols-5 gap-y-6 gap-x-2" id="theme-selector">
+                        <div class="theme-swatch active" onclick="setTheme('standard')" style="background: #1a202c;"></div><div class="theme-swatch" onclick="setTheme('midnight')" style="background: #1a2639;"></div><div class="theme-swatch" onclick="setTheme('forest')" style="background: #2d4a22;"></div><div class="theme-swatch" onclick="setTheme('sakura')" style="background: #fec5bb;"></div><div class="theme-swatch" onclick="setTheme('akane')" style="background: #7a1a1a;"></div><div class="theme-swatch" onclick="setTheme('sumizome')" style="background: #000000;"></div><div class="theme-swatch" onclick="setTheme('asagi')" style="background: #008b8b;"></div><div class="theme-swatch" onclick="setTheme('yamabuki')" style="background: #d97706;"></div><div class="theme-swatch" onclick="setTheme('kachiiro')" style="background: #0d1b2a;"></div><div class="theme-swatch" onclick="setTheme('uguisu')" style="background: #606c38;"></div>
+                    </div></div>
+                    <div class="mt-20 border-t border-gray-200 pt-6 text-center"><button onclick="window.handleLogout()" class="text-xs font-bold text-red-400 tracking-widest uppercase mb-4">Logout</button></div>
                 </div>
             </div>
 
             <div class="p-5 bg-black/5 border-t border-gray-100 flex justify-between items-center text-[8px] text-gray-400 tracking-[0.4em] font-black">
-                <button onclick="window.handlePrev()" class="hover:text-accent-gold">PREV</button>
+                <button onclick="window.handlePrev()">PREV</button>
                 <span>SYNC ACTIVE</span>
-                <button onclick="window.handleNext()" class="hover:text-accent-gold">NEXT</button>
+                <button onclick="window.handleNext()">NEXT</button>
             </div>
         </div>
     </div>
 
-    <!-- Firebase & Logic -->
+    <!-- Firebase & Planner Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // --- Firebase Config (書き換えてください) ---
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'my-pro-planner';
+        // ================================================================
+        // 1. 下の {} の中をご自身の Firebase 設定に書き換えてください
+        // ================================================================
+        const firebaseConfig = {
+              apiKey: "AIzaSyB-CKqjGBrl3239d2K0X4C9ceFA0tUhoDs",
+  authDomain: "pro-planner-a9405.firebaseapp.com",
+  projectId: "pro-planner-a9405",
+  storageBucket: "pro-planner-a9405.firebasestorage.app",
+  messagingSenderId: "930319488179",
+  appId: "1:930319488179:web:dbc0f9f2530fd6fe828cc6",
+  measurementId: "G-LTRFWPFH63"
+        };
+        // ================================================================
 
-        // --- State ---
-        const state = {
-            view: 'daily',
-            authMode: 'login',
-            currentDate: new Date().toISOString().split('T')[0],
-            displayMonth: new Date(),
-            displayWeekStart: new Date(),
-            user: null,
-            allData: {},
-            holidayPatch: {},
-            settings: { theme: 'standard', anniversaries: [] }
+        // 要素取得
+        const els = {
+            loading: document.getElementById('loading'),
+            loadText: document.getElementById('loading-text'),
+            auth: document.getElementById('view-auth'),
+            app: document.getElementById('app-main'),
+            syncStatus: document.getElementById('sync-status'),
+            dateLabel: document.getElementById('date-label'),
+            datePicker: document.getElementById('date-picker-hidden'),
+            jpHeader: document.getElementById('jp-header-text'),
+            mainObj: document.getElementById('main-objective-field'),
+            note: document.getElementById('note-area'),
+            todo: document.getElementById('todo-list'),
+            authEmail: document.getElementById('auth-email'),
+            authPass: document.getElementById('auth-password'),
+            authSwitch: document.getElementById('auth-switch-text'),
+            authBtn: document.getElementById('auth-submit-btn'),
+            authError: document.getElementById('auth-error-msg')
         };
 
         const themes = {
@@ -417,306 +305,155 @@
             uguisu: { '--cover-color': '#606c38', '--accent-gold': '#dda15e', '--accent-soft': '#bc6c25', '--paper-bg': '#fefae0', '--text-main': '#283618', '--body-bg': '#283618', '--anniversary-color': '#bc6c25' }
         };
 
-        const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
-        const wMonthNames = ["睦月", "如月", "弥生", "卯月", "皐月", "水無月", "文月", "葉月", "長月", "神無月", "霜月", "師走"];
-        const rokuyoNames = ["大安", "赤口", "先勝", "友引", "先負", "仏滅"];
-        const fallbackHolidays = { "01-01": "元日", "02-11": "建国", "02-23": "天皇誕生日", "04-29": "昭和の日", "05-03": "憲法", "05-04": "みどり", "05-05": "こどもの日", "11-03": "文化の日", "11-23": "勤労" };
+        const state = {
+            user: null,
+            view: 'daily',
+            authMode: 'login',
+            currentDate: new Date().toISOString().split('T')[0],
+            allData: {},
+            holidayPatch: {},
+            settings: { theme: 'standard' }
+        };
 
-        let els = {};
+        const appId = "my-planner-v1";
+        let db, authInstance;
 
-        function setupElements() {
-            els = {
-                loading: document.getElementById('loading'),
-                syncStatus: document.getElementById('sync-status'),
-                userId: document.getElementById('user-id-display'),
-                datePicker: document.getElementById('date-picker-hidden'),
-                dateLabel: document.getElementById('date-label'),
-                jpHeader: document.getElementById('jp-header-text'),
-                mainObjectiveField: document.getElementById('main-objective-field'),
-                noteArea: document.getElementById('note-area'),
-                todoContainer: document.getElementById('todo-list'),
-                notebook: document.getElementById('app-main'),
-                dailyAlmanac: document.getElementById('daily-almanac'),
-                dailyHolidayName: document.getElementById('daily-holiday-name'),
-                monthlyTitle: document.getElementById('monthly-title'),
-                monthlyList: document.getElementById('monthly-list-container'),
-                weeklyTitle: document.getElementById('weekly-title'),
-                weeklyContainer: document.getElementById('weekly-container'),
-                views: { 
-                    daily: document.getElementById('view-daily'), 
-                    weekly: document.getElementById('view-weekly'), 
-                    monthly: document.getElementById('view-monthly'), 
-                    settings: document.getElementById('view-settings'), 
-                    auth: document.getElementById('view-auth') 
-                },
-                tabs: { 
-                    daily: document.getElementById('tab-daily'), 
-                    weekly: document.getElementById('tab-weekly'), 
-                    monthly: document.getElementById('tab-monthly'), 
-                    settings: document.getElementById('tab-settings') 
-                },
-                mainNav: document.getElementById('main-nav'),
-                authEmail: document.getElementById('auth-email'),
-                authPassword: document.getElementById('auth-password'),
-                authSubmitBtn: document.getElementById('auth-submit-btn'),
-                authSwitchText: document.getElementById('auth-switch-text'),
-                authError: document.getElementById('auth-error-msg'),
-                anniversaryList: document.getElementById('anniversary-list'),
-                anniLabel: document.getElementById('anni-label'),
-                anniDate: document.getElementById('anni-date'),
-                userEmailDisp: document.getElementById('current-user-email')
-            };
-            window.els = els;
+        // 初期化
+        async function start() {
+            try {
+                console.log("App Starting...");
+                const app = initializeApp(firebaseConfig);
+                authInstance = getAuth(app);
+                db = getFirestore(app);
 
-            if (els.datePicker) {
-                els.datePicker.onchange = (e) => window.goToDate(e.target.value);
+                // 祝日データ取得 (失敗しても続行)
+                try {
+                    const res = await fetch('https://holidays-jp.github.io/api/v1/date.json');
+                    if (res.ok) state.holidayPatch = await res.json();
+                } catch(e) { console.warn("Holiday API error"); }
+
+                // 認証状態の監視
+                onAuthStateChanged(authInstance, async (user) => {
+                    if (user) {
+                        state.user = user;
+                        els.auth.classList.add('hidden');
+                        els.app.classList.remove('hidden');
+                        
+                        // 設定読み込み
+                        const snap = await getDoc(doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'config'));
+                        if (snap.exists()) state.settings = snap.data();
+                        
+                        applyTheme();
+                        els.loading.classList.add('hidden');
+                        
+                        // データ同期開始
+                        onSnapshot(collection(db, 'artifacts', appId, 'users', user.uid, 'dailyData'), (snap) => {
+                            snap.forEach(d => { state.allData[d.id] = d.data(); });
+                            refreshUI();
+                        });
+                    } else {
+                        els.loading.classList.add('hidden');
+                        els.auth.classList.remove('hidden');
+                        els.app.classList.add('hidden');
+                    }
+                });
+
+            } catch (err) {
+                console.error("Critical Start Error:", err);
+                els.loadText.textContent = "CONFIG ERROR: Check Console";
             }
         }
 
-        // --- Auth ---
-        window.handleAuth = async () => {
-            const email = els.authEmail.value, pass = els.authPassword.value;
-            els.authError.textContent = "";
-            try {
-                if (state.authMode === 'login') await signInWithEmailAndPassword(auth, email, pass);
-                else await createUserWithEmailAndPassword(auth, email, pass);
-            } catch (e) { els.authError.textContent = "Authentication Error"; }
-        };
-        window.handleGoogleAuth = async () => {
-            try { await signInWithPopup(auth, googleProvider); } catch (e) { els.authError.textContent = "Google Sign-in Failed"; }
-        };
+        // --- UI functions ---
+        window.switchView = (v) => { state.view = v; refreshUI(); };
+        window.goToDate = (s) => { state.currentDate = s; state.view = 'daily'; refreshUI(); };
+        window.openDatePicker = () => els.datePicker.showPicker();
+        window.setTheme = (n) => { state.settings.theme = n; saveSettings(); };
+        window.handleLogout = () => signOut(authInstance).then(() => location.reload());
+        
         window.toggleAuthMode = () => {
             state.authMode = state.authMode === 'login' ? 'signup' : 'login';
-            els.authSubmitBtn.textContent = state.authMode === 'login' ? 'LOGIN' : 'SIGN UP';
-            els.authSwitchText.textContent = state.authMode === 'login' ? '新規登録はこちら' : '既にアカウントをお持ちの方';
+            els.authBtn.textContent = state.authMode === 'login' ? 'LOGIN' : 'SIGN UP';
+            els.authSwitch.textContent = state.authMode === 'login' ? '新規登録はこちら' : 'ログインはこちら';
         };
-        window.handleLogout = () => signOut(auth).then(() => location.reload());
 
-        // --- Logic ---
-        function parseLocalDate(s) { const p = s.split('-'); return new Date(p[0], p[1]-1, p[2]); }
-        function formatDate(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-
-        function getAlmanac(date) {
-            const fs = formatDate(date), md = fs.substring(5);
-            const holidayName = state.holidayPatch[fs] || fallbackHolidays[md] || "";
-            const anni = state.settings.anniversaries.find(a => a.date === md);
-            const dispHoliday = anni ? (holidayName ? `${holidayName} / ${anni.label}` : anni.label) : holidayName;
-            let rokuyo = "";
-            const lunarBase = new Date(2026, 0, 19); 
-            const diff = Math.floor((date - lunarBase) / 86400000);
-            rokuyo = rokuyoNames[Math.abs(diff % 6)];
-            return { holidayName: dispHoliday, isHoliday: !!holidayName, isAnniversary: !!anni, rokuyo };
-        }
-
-        function getDateClass(date) {
-            const alm = getAlmanac(date);
-            if (alm.isHoliday) return 'is-holiday';
-            if (alm.isAnniversary) return 'is-anniversary';
-            if (date.getDay() === 0) return 'is-sunday';
-            if (date.getDay() === 6) return 'is-saturday';
-            return '';
-        }
-
-        async function initApp() {
-            setupElements();
+        window.handleAuth = async () => {
             try {
-                const res = await fetch('https://holidays-jp.github.io/api/v1/date.json');
-                if (res.ok) state.holidayPatch = await res.json();
-            } catch(e) {}
+                if (state.authMode === 'login') await signInWithEmailAndPassword(authInstance, els.authEmail.value, els.authPass.value);
+                else await createUserWithEmailAndPassword(authInstance, els.authEmail.value, els.authPass.value);
+            } catch (e) { els.authError.textContent = "Auth failed: " + e.message; }
+        };
 
-            onAuthStateChanged(auth, async (user) => {
-                if (user) {
-                    state.user = user;
-                    els.userEmailDisp.textContent = user.email;
-                    els.views.auth.classList.add('hidden');
-                    els.mainNav.classList.remove('hidden');
-                    els.notebook.classList.remove('hidden');
-                    
-                    const sRef = doc(db, 'artifacts', appId, 'users', user.uid, 'settings', 'config');
-                    const snap = await getDoc(sRef);
-                    if (snap.exists()) state.settings = { ...state.settings, ...snap.data() };
-                    
-                    applySettings();
-                    els.loading.style.opacity = '0';
-                    setTimeout(() => { if(els.loading) els.loading.style.display = 'none'; }, 500);
-                    startSync();
-                } else {
-                    els.loading.style.display = 'none';
-                    els.views.auth.classList.remove('hidden');
-                    els.mainNav.classList.add('hidden');
-                    els.notebook.classList.add('hidden');
-                }
-            });
-        }
+        window.handleGoogleAuth = async () => {
+            try { await signInWithPopup(authInstance, new GoogleAuthProvider()); } 
+            catch (e) { els.authError.textContent = "Google Sign-in failed"; }
+        };
 
-        function applySettings() {
-            const theme = themes[state.settings.theme] || themes.standard;
-            Object.keys(theme).forEach(k => {
-                document.documentElement.style.setProperty(k, theme[k]);
-                if (k === '--body-bg') document.body.style.backgroundColor = theme[k];
-            });
+        function applyTheme() {
+            const t = themes[state.settings.theme] || themes.standard;
+            Object.keys(t).forEach(k => document.documentElement.style.setProperty(k, t[k]));
+            document.body.style.backgroundColor = t['--body-bg'];
             document.querySelectorAll('.theme-swatch').forEach(s => {
-                const clickAttr = s.getAttribute('onclick');
-                if (clickAttr) {
-                    const match = clickAttr.match(/'([^']+)'/);
-                    if (match && match[1] === state.settings.theme) s.classList.add('active');
-                    else s.classList.remove('active');
-                }
+                const name = s.getAttribute('onclick').match(/'([^']+)'/)[1];
+                s.classList.toggle('active', name === state.settings.theme);
             });
-            renderAnniversaries(); refreshUI();
+            refreshUI();
         }
 
         async function saveSettings() {
             if (state.user) await setDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'settings', 'config'), state.settings);
-            applySettings();
+            applyTheme();
         }
-
-        window.setTheme = (n) => { state.settings.theme = n; saveSettings(); };
-        window.addAnniversary = () => {
-            const l = els.anniLabel.value.trim(), d = els.anniDate.value.trim();
-            if(l && /^\d{2}-\d{2}$/.test(d)){
-                if (!state.settings.anniversaries) state.settings.anniversaries = [];
-                state.settings.anniversaries.push({id: Date.now(), label: l, date: d});
-                els.anniLabel.value=''; els.anniDate.value=''; saveSettings();
-            }
-        };
-        window.removeAnniversary = (id) => {
-            state.settings.anniversaries = state.settings.anniversaries.filter(a => a.id !== id);
-            saveSettings();
-        };
-
-        function renderAnniversaries() {
-            if (!els.anniversaryList || !state.settings.anniversaries) return;
-            els.anniversaryList.innerHTML = '';
-            state.settings.anniversaries.forEach(a => {
-                const div = document.createElement('div');
-                div.className = 'anniversary-item';
-                div.innerHTML = `<span class="font-bold text-[10px] flex-grow">${a.label} (${a.date})</span><button onclick="window.removeAnniversary(${a.id})" class="text-red-400 font-bold text-xs">✕</button>`;
-                els.anniversaryList.appendChild(div);
-            });
-        }
-
-        function startSync() {
-            if (!state.user) return;
-            onSnapshot(collection(db, 'artifacts', appId, 'users', state.user.uid, 'dailyData'), (snap) => {
-                snap.forEach(d => { state.allData[d.id] = d.data(); });
-                refreshUI();
-            });
-        }
-
-        async function saveData() {
-            if(!state.user || !els.syncStatus) return;
-            els.syncStatus.textContent = "SAVING...";
-            const todos = [];
-            document.querySelectorAll('#view-daily .todo-item').forEach(item => {
-                const textInput = item.querySelector('input[type="text"]');
-                const checkbox = item.querySelector('input[type="checkbox"]');
-                if (textInput && checkbox) {
-                    const text = textInput.value;
-                    const checked = checkbox.checked;
-                    if (text.trim() || checked) todos.push({ text, checked });
-                }
-            });
-            const docRef = doc(db, 'artifacts', appId, 'users', state.user.uid, 'dailyData', state.currentDate);
-            try {
-                await setDoc(docRef, { mainObjective: els.mainObjectiveField.value, note: els.noteArea.value, todos: todos, updatedAt: Date.now() }, { merge: true });
-                els.syncStatus.textContent = "SYNCED";
-            } catch (err) { els.syncStatus.textContent = "ERROR"; }
-        }
-
-        window.saveQuickPlan = async (dStr, text) => {
-            if(!state.user || !els.syncStatus) return;
-            els.syncStatus.textContent = "SAVING...";
-            const docRef = doc(db, 'artifacts', appId, 'users', state.user.uid, 'dailyData', dStr);
-            try {
-                await setDoc(docRef, { mainObjective: text, updatedAt: Date.now() }, { merge: true });
-                els.syncStatus.textContent = "SYNCED";
-            } catch (err) { els.syncStatus.textContent = "ERROR"; }
-        };
-
-        window.switchView = (v) => {
-            state.view = v;
-            if(v==='weekly'){
-                const d = parseLocalDate(state.currentDate);
-                const day = d.getDay();
-                d.setDate(d.getDate() + ((day === 0 ? -6 : 1) - day));
-                state.displayWeekStart = new Date(d);
-            }
-            refreshUI();
-            window.scrollTo(0,0);
-        };
 
         function refreshUI() {
-            if(!state.user || !els.tabs) return;
-            Object.keys(els.tabs).forEach(k => { if(els.tabs[k]) els.tabs[k].classList.toggle('tab-active', state.view === k); if(els.views[k]) els.views[k].classList.toggle('hidden', state.view !== k); });
-            const d = parseLocalDate(state.currentDate);
-            const { holidayName, isHoliday, rokuyo } = getAlmanac(d);
-            const reiwa = d.getFullYear() - 2018;
+            const d = new Date(state.currentDate);
+            const fs = state.currentDate, md = fs.substring(5);
+            const holidayName = state.holidayPatch[fs] || "";
+            const isHoliday = !!holidayName;
             
-            if (els.jpHeader) els.jpHeader.innerHTML = `<span>${d.getMonth()+1}月 / ${wMonthNames[d.getMonth()]}</span><span>${d.getFullYear()}（令和${reiwa}）年</span>`;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('tab-active', b.id === `tab-${state.view}`));
+            Object.keys(state.views).forEach(k => state.views[k].classList.toggle('hidden', k !== state.view));
+
+            els.jpHeader.innerHTML = `<span>${d.getMonth()+1}月</span><span>${d.getFullYear()}年</span>`;
             
             if (state.view === 'daily') {
-                els.dateLabel.className = `daily-date-display font-bold text-4xl ${getDateClass(d)}`;
-                els.dateLabel.innerHTML = `${d.getDate()}日 ${isHoliday ? '<span class="jp-flag"></span>' : ''} <span class="text-2xl opacity-40 font-normal ml-1">${dayNames[d.getDay()]}</span>`;
+                els.dateLabel.innerHTML = `${d.getDate()}日 ${isHoliday ? '<span class="jp-flag"></span>' : ''}`;
                 els.dailyHolidayName.textContent = holidayName;
-                els.dailyAlmanac.innerHTML = `<span>${rokuyo}</span><span class="text-lg opacity-70"><i class="wi wi-moon-alt-waxing-crescent-3"></i></span>`;
                 const data = state.allData[state.currentDate] || { mainObjective: "", note: "", todos: [] };
-                if (document.activeElement !== els.mainObjectiveField) els.mainObjectiveField.value = data.mainObjective || "";
-                if (document.activeElement !== els.noteArea) els.noteArea.value = data.note || "";
+                if (document.activeElement !== els.mainObj) els.mainObj.value = data.mainObjective || "";
+                if (document.activeElement !== els.note) els.note.value = data.note || "";
                 renderTodos(data.todos || []);
-                window.autoResize(els.noteArea);
-            } else if (state.view === 'weekly') renderWeekly();
-            else if (state.view === 'monthly') renderMonthly();
+            }
         }
 
         function renderTodos(todos) {
             if (document.activeElement && document.activeElement.closest('.todo-item')) return;
-            els.todoContainer.innerHTML = '';
+            els.todo.innerHTML = '';
             if (todos.length === 0) window.addTodo(); else todos.forEach(t => window.addTodo(t.text, t.checked));
         }
 
         window.addTodo = (text = '', checked = false) => {
             const div = document.createElement('div'); div.className = 'todo-item flex items-center mb-3';
-            div.innerHTML = `<input type="checkbox" ${checked ? 'checked' : ''} onchange="window.debouncedSave()"><input type="text" class="ml-4 bg-transparent border-b border-transparent focus:border-accent-gold outline-none flex-grow text-gray-700 py-1 text-sm font-bold" value="${text}" placeholder="..." oninput="window.debouncedSave()">`;
-            els.todoContainer.appendChild(div);
+            div.innerHTML = `<input type="checkbox" ${checked ? 'checked' : ''} onchange="window.debouncedSave()"><input type="text" class="ml-4 bg-transparent border-b border-transparent focus:border-accent-gold outline-none flex-grow text-sm" value="${text}" oninput="window.debouncedSave()">`;
+            els.todo.appendChild(div);
         };
 
-        function renderWeekly() {
-            const start = new Date(state.displayWeekStart), todayStr = formatDate(new Date());
-            els.weeklyTitle.textContent = `${start.getMonth()+1}/${start.getDate()} - ${new Date(new Date(start).getTime() + 518400000).getMonth()+1}/${new Date(new Date(start).getTime() + 518400000).getDate()}`;
-            els.weeklyContainer.innerHTML = '';
-            for(let i=0; i<7; i++){
-                const cur = new Date(start); cur.setDate(cur.getDate()+i); const dStr = formatDate(cur); const alm = getAlmanac(cur);
-                const card = document.createElement('div'); card.className = `bg-white/40 p-4 rounded border border-gray-100 transition-all ${dStr === todayStr ? 'is-today' : ''}`;
-                const cls = getDateClass(cur);
-                card.innerHTML = `<div class="flex justify-between items-start mb-2"><div class="cursor-pointer" onclick="window.goToDate('${dStr}')"><div class="flex items-baseline gap-2"><span class="text-xl font-black ${cls}">${cur.getDate()}</span><span class="text-[10px] font-black uppercase ${cls}">${dayNames[cur.getDay()]}</span>${alm.isHoliday ? '<span class="jp-flag" style="transform:scale(0.8)"></span>' : ''}</div><div class="text-[8px] text-accent-gold font-bold">${alm.rokuyo}</div></div><span class="text-[8px] font-bold ${cls} text-right max-w-[80px]">${alm.holidayName}</span></div><input type="text" class="row-input w-full font-bold" value="${(state.allData[dStr] || {}).mainObjective || ''}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
-                els.weeklyContainer.appendChild(card);
-            }
-        }
+        let st; window.debouncedSave = () => {
+            clearTimeout(st);
+            st = setTimeout(async () => {
+                if(!state.user) return;
+                const todos = []; document.querySelectorAll('#todo-list .todo-item').forEach(i => {
+                    const t = i.querySelector('input[type="text"]'), c = i.querySelector('input[type="checkbox"]');
+                    if(t.value.trim() || c.checked) todos.push({text: t.value, checked: c.checked});
+                });
+                await setDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'dailyData', state.currentDate), { mainObjective: els.mainObj.value, note: els.note.value, todos, updatedAt: Date.now() }, { merge: true });
+                els.syncStatus.textContent = "SYNCED";
+            }, 1000);
+        };
 
-        function renderMonthly() {
-            const y = state.displayMonth.getFullYear(), m = state.displayMonth.getMonth(), todayStr = formatDate(new Date());
-            els.monthlyTitle.textContent = `${y} / ${m + 1}`;
-            els.monthlyList.innerHTML = '';
-            for (let d = 1; d <= new Date(y, m + 1, 0).getDate(); d++) {
-                const dateObj = new Date(y, m, d), dStr = formatDate(dateObj); const alm = getAlmanac(dateObj);
-                const cls = getDateClass(dateObj);
-                const row = document.createElement('div'); row.className = `list-row ${cls} ${dStr === todayStr ? 'is-today' : ''}`;
-                row.innerHTML = `<div class="day-num cursor-pointer ${cls}" onclick="window.goToDate('${dStr}')">${d}</div><div class="day-name ${cls}">${dayNames[dateObj.getDay()]}</div><div class="day-almanac"><div class="flex items-center gap-1">${alm.rokuyo}${alm.isHoliday ? '<span class="jp-flag" style="transform:scale(0.6)"></span>' : ''}</div><div class="text-[7px] truncate opacity-70">${alm.holidayName}</div></div><input type="text" class="row-input font-bold" value="${(state.allData[dStr] || {}).mainObjective || ''}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
-                els.monthlyList.appendChild(row);
-            }
-        }
+        window.autoResize = (t) => { t.style.height='auto'; t.style.height=t.scrollHeight+'px'; };
 
-        window.goToDate = (s) => { state.currentDate = s; state.view = 'daily'; refreshUI(); };
-        window.openDatePicker = () => els.datePicker && els.datePicker.showPicker();
-        window.autoResize = (t) => { if(!t)return; t.style.height='auto'; t.style.height=t.scrollHeight+'px'; };
-        let st; window.debouncedSave = () => { clearTimeout(st); st = setTimeout(saveData, 1000); };
-        window.handlePrev = () => { const d = parseLocalDate(state.currentDate); d.setDate(d.getDate()-1); window.goToDate(formatDate(d)); };
-        window.handleNext = () => { const d = parseLocalDate(state.currentDate); d.setDate(d.getDate()+1); window.goToDate(formatDate(d)); };
-        window.changeWeek = (df) => { state.displayWeekStart.setDate(state.displayWeekStart.getDate()+(df*7)); renderWeekly(); };
-        window.changeMonth = (df) => { state.displayMonth.setMonth(state.displayMonth.getMonth()+df); renderMonthly(); };
-
-        initApp();
+        start();
     </script>
 </body>
 </html>
