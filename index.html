@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
     <style>
         :root {
+            /* Standard Theme Default */
             --cover-color: #1a202c;
             --paper-bg: #fdfaf5;
             --line-color: #e2d9c8;
@@ -149,7 +150,14 @@
         .auth-card { background: var(--paper-bg); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); width: 100%; max-width: 400px; }
         .auth-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line-color); border-radius: 8px; font-size: 0.9rem; outline: none; background: #fff; }
         .auth-btn { width: 100%; padding: 14px; background: var(--cover-color); color: #fff; border-radius: 8px; font-weight: 800; letter-spacing: 0.1em; margin-top: 5px; }
-        .google-btn { width: 100%; padding: 12px; background: #fff; color: #555; border: 1px solid #ddd; border-radius: 8px; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 15px; font-size: 0.85rem; }
+        
+        .google-btn {
+            width: 100%; padding: 12px; background: #fff; color: #3c4043; border: 1px solid #dadce0;
+            border-radius: 8px; font-weight: 600; display: flex; align-items: center;
+            justify-content: center; gap: 12px; margin-top: 15px; font-size: 0.9rem;
+            transition: background-color 0.2s, box-shadow 0.2s;
+        }
+        .google-btn:hover { background-color: #f8f9fa; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
 
         .theme-swatch { width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); transition: 0.2s; position: relative; }
         .theme-swatch.active { transform: scale(1.2); box-shadow: 0 0 0 2px var(--accent-gold); }
@@ -187,7 +195,12 @@
                 <input type="email" id="auth-email" class="auth-input" placeholder="Email Address">
                 <input type="password" id="auth-password" class="auth-input" placeholder="Password">
                 <button onclick="window.handleAuth()" id="auth-submit-btn" class="auth-btn uppercase">Login</button>
-                <button onclick="window.handleGoogleAuth()" class="google-btn">Google Sign-in</button>
+                
+                <button onclick="window.handleGoogleAuth()" class="google-btn">
+                    <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285f4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184L12.048 13.56c-.408.273-.93.432-1.548.432-1.191 0-2.199-.806-2.557-1.889H4.912v2.335A8.997 8.997 0 0 0 9 18z" fill="#34a853"/><path d="M6.443 12.103c-.188-.564-.296-1.166-.296-1.79 0-.624.108-1.226.296-1.79V6.188H4.912a8.992 8.992 0 0 0 0 8.251l1.531-2.336z" fill="#fbbc05"/><path d="M9 4.009c1.322 0 2.509.454 3.441 1.345l2.582-2.58C13.463 1.155 11.427 0 9 0A8.997 8.997 0 0 0 4.912 2.335L6.443 4.67c.358-1.083 1.366-1.889 2.557-1.889z" fill="#ea4335"/></svg>
+                    Googleでサインイン
+                </button>
+
                 <p id="auth-error-msg" class="text-[10px] text-red-500 mt-4 text-center h-4"></p>
                 <div onclick="window.toggleAuthMode()" id="auth-switch-text" class="text-[10px] text-accent-soft text-center mt-6 cursor-pointer underline">新規登録はこちら</div>
             </div>
@@ -259,16 +272,17 @@
         import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // ================================================================
-        // 1. 下の {} の中をご自身の Firebase 設定に書き換えてください
+        // Firebase
         // ================================================================
         const firebaseConfig = {
-              apiKey: "AIzaSyB-CKqjGBrl3239d2K0X4C9ceFA0tUhoDs",
+  apiKey: "AIzaSyB-CKqjGBrl3239d2K0X4C9ceFA0tUhoDs",
   authDomain: "pro-planner-a9405.firebaseapp.com",
   projectId: "pro-planner-a9405",
   storageBucket: "pro-planner-a9405.firebasestorage.app",
   messagingSenderId: "930319488179",
   appId: "1:930319488179:web:dbc0f9f2530fd6fe828cc6",
   measurementId: "G-LTRFWPFH63"
+};
         };
         // ================================================================
 
