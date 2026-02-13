@@ -90,13 +90,13 @@
         }
         .tab-active { color: var(--cover-color); background: transparent; border-bottom: 3px solid var(--cover-color); }
 
-        /* ビューコンテナの設定：デフォルト非表示、active クラスで表示 */
         .view-container { flex-grow: 1; padding-bottom: 40px; display: none; }
         .view-container.active { display: block; }
 
         .list-row { display: flex; align-items: center; border-bottom: 1px solid var(--line-color); padding: 12px 25px; }
         .day-num { width: 35px; font-weight: 800; font-size: 1.1rem; }
         .day-name { width: 40px; font-size: 0.7rem; font-weight: 800; }
+        .day-almanac-col { width: 100px; font-size: 0.6rem; color: var(--accent-gold); font-weight: 700; line-height: 1.2; }
         
         .row-input { flex-grow: 1; background: transparent; border: none; outline: none; font-size: 0.9rem; color: var(--text-main); padding: 2px 0; font-weight: 700; }
 
@@ -113,7 +113,6 @@
         
         .daily-date-display { font-family: 'Shippori Mincho', serif; cursor: pointer; letter-spacing: 0.05em; }
 
-        /* Auth UI */
         .auth-card { background: var(--paper-bg); padding: 30px; border-radius: 12px; width: 90%; max-width: 350px; border: 1px solid rgba(0,0,0,0.1); }
         .auth-input { width: 100%; padding: 14px; margin-bottom: 12px; border: 1px solid var(--line-color); border-radius: 8px; outline: none; font-size: 0.95rem; }
         .auth-btn { width: 100%; padding: 14px; background: var(--cover-color); color: #fff; border-radius: 8px; font-weight: 800; }
@@ -122,7 +121,6 @@
             width: 100%; padding: 12px; background: #fff; color: #3c4043; border: 1px solid #dadce0;
             border-radius: 8px; font-weight: 600; display: flex; align-items: center;
             justify-content: center; gap: 12px; margin-top: 15px; font-size: 0.9rem;
-            transition: background-color 0.2s;
         }
 
         .theme-swatch { width: 35px; height: 35px; border-radius: 50%; border: 2px solid #fff; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
@@ -134,12 +132,14 @@
         .hidden { display: none !important; }
         #date-picker-hidden { position: absolute; opacity: 0; pointer-events: none; }
         .crest-background { position: absolute; right: 15px; bottom: 70px; pointer-events: none; z-index: 1; opacity: 0.2; }
+        
+        .version-tag { font-size: 8px; font-weight: 900; opacity: 0.3; letter-spacing: 0.1em; }
     </style>
 </head>
 <body>
 
     <!-- ロード画面 -->
-    <div id="loading" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white text-center">
+    <div id="loading" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white">
         <div class="loader"></div>
         <div id="loading-text" class="mt-8 text-accent-gold font-bold tracking-[0.4em] animate-pulse text-[10px]">INITIALIZING...</div>
     </div>
@@ -151,8 +151,9 @@
         <!-- 認証画面 -->
         <div id="view-auth" class="hidden h-screen flex items-center justify-center">
             <div class="auth-card text-center">
-                <div class="mb-8">
+                <div class="mb-6">
                     <h1 class="font-serif text-xl font-bold tracking-[0.3em] text-cover-color uppercase">Cloud Planner</h1>
+                    <div class="version-tag mt-1">EDITION v2.3.0</div>
                     <div class="h-px w-12 bg-accent-gold mx-auto mt-2"></div>
                 </div>
                 <input type="email" id="auth-email" class="auth-input" placeholder="Email">
@@ -183,7 +184,7 @@
                 <div class="jp-header" id="jp-header-text"></div>
                 
                 <!-- 日別ビュー -->
-                <div id="view-daily" class="view-container px-10">
+                <div id="view-daily" class="view-container hidden px-10">
                     <div class="flex justify-between items-end border-b border-gray-300 pb-3 mb-2">
                         <div class="flex items-baseline relative shrink-0">
                             <div id="date-label" class="daily-date-display font-bold text-3xl" onclick="window.openDatePicker()"></div>
@@ -200,7 +201,7 @@
                 </div>
 
                 <!-- 週間ビュー -->
-                <div id="view-weekly" class="view-container px-8">
+                <div id="view-weekly" class="view-container hidden px-8">
                     <div class="flex justify-between items-center mb-6">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="weekly-title" class="text-xs font-bold tracking-widest text-accent-soft uppercase">Week</h2>
@@ -210,7 +211,7 @@
                 </div>
 
                 <!-- 月間ビュー -->
-                <div id="view-monthly" class="view-container px-2">
+                <div id="view-monthly" class="view-container hidden px-2">
                     <div class="px-8 mb-6 flex justify-between items-center">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="monthly-title" class="text-lg font-black border-b-2 border-accent-gold pb-1 px-4">Month</h2>
@@ -220,7 +221,7 @@
                 </div>
 
                 <!-- 設定ビュー -->
-                <div id="view-settings" class="view-container px-8 pt-5 text-center text-accent-soft">
+                <div id="view-settings" class="view-container hidden px-8 pt-5 text-center text-accent-soft">
                     <h3 class="text-[9px] font-black tracking-widest mb-6 uppercase">Color Themes</h3>
                     <div class="grid grid-cols-5 gap-4 mb-10" id="theme-selector">
                         <div class="theme-swatch active" onclick="setTheme('standard')" style="background: #1a202c;"></div><div class="theme-swatch" onclick="setTheme('midnight')" style="background: #1a2639;"></div><div class="theme-swatch" onclick="setTheme('forest')" style="background: #2d4a22;"></div><div class="theme-swatch" onclick="setTheme('sakura')" style="background: #fec5bb;"></div><div class="theme-swatch" onclick="setTheme('akane')" style="background: #7a1a1a;"></div><div class="theme-swatch" onclick="setTheme('sumizome')" style="background: #000000;"></div><div class="theme-swatch" onclick="setTheme('asagi')" style="background: #008b8b;"></div><div class="theme-swatch" onclick="setTheme('yamabuki')" style="background: #d97706;"></div><div class="theme-swatch" onclick="setTheme('kachiiro')" style="background: #0d1b2a;"></div><div class="theme-swatch" onclick="setTheme('uguisu')" style="background: #606c38;"></div>
@@ -233,7 +234,10 @@
 
             <div class="p-4 bg-black/5 border-t border-gray-100 flex justify-between items-center text-[8px] text-gray-400 tracking-[0.4em] font-black">
                 <button onclick="window.handlePrev()">PREV</button>
-                <span>SYNC ACTIVE EDITION</span>
+                <div class="flex flex-col items-center">
+                    <span>SYNC ACTIVE</span>
+                    <span class="version-tag">PRO PLANNER v2.3.0</span>
+                </div>
                 <button onclick="window.handleNext()">NEXT</button>
             </div>
         </div>
@@ -277,6 +281,9 @@
 
         const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
         const rokuyoNames = ["大安", "先勝", "友引", "先負", "仏滅", "赤口"];
+        const sekki2026 = { "01-05": "小寒", "01-20": "大寒", "02-04": "立春", "02-18": "雨水", "03-05": "啓蟄", "03-20": "春分", "04-04": "清明", "04-20": "穀雨", "05-05": "立夏", "05-21": "小満", "06-05": "芒種", "06-21": "夏至", "07-07": "小暑", "07-22": "大暑", "08-07": "立秋", "08-23": "処暑", "09-07": "白露", "09-23": "秋分", "10-08": "寒露", "10-23": "霜降", "11-07": "立冬", "11-22": "小雪", "12-07": "大雪", "12-21": "冬至" };
+        const lunarMonths2026 = [ { start: new Date(2025, 11, 20), month: 11 }, { start: new Date(2026, 0, 19), month: 12 }, { start: new Date(2026, 1, 17), month: 1 }, { start: new Date(2026, 2, 19), month: 2 }, { start: new Date(2026, 3, 17), month: 3 }, { start: new Date(2026, 4, 16), month: 4 }, { start: new Date(2026, 5, 15), month: 5 }, { start: new Date(2026, 6, 14), month: 6 }, { start: new Date(2026, 7, 12), month: 7 }, { start: new Date(2026, 8, 11), month: 8 }, { start: new Date(2026, 9, 10), month: 9 }, { start: new Date(2026, 10, 9), month: 10 }, { start: new Date(2026, 11, 8), month: 11 } ];
+
         const appId = "my-planner-pro-v3";
         let db, authInstance;
 
@@ -335,10 +342,50 @@
                 });
 
                 if (els.datePicker) els.datePicker.onchange = (e) => window.goToDate(e.target.value);
-            } catch (err) { 
-                console.error(err); 
-                document.getElementById('loading-text').textContent = "CONFIG ERROR: Firebase設定を確認してください";
+            } catch (err) { console.error(err); }
+        }
+
+        // --- Almanac Logic ---
+        function getMoonIcon(lunarDay) {
+            if (lunarDay === 1) return "wi-moon-new";
+            if (lunarDay < 8) return "wi-moon-waxing-crescent-3";
+            if (lunarDay === 8) return "wi-moon-first-quarter";
+            if (lunarDay < 15) return "wi-moon-waxing-gibbous-3";
+            if (lunarDay === 15) return "wi-moon-full";
+            if (lunarDay < 23) return "wi-moon-waning-gibbous-3";
+            if (lunarDay === 23) return "wi-moon-third-quarter";
+            return "wi-moon-waning-crescent-3";
+        }
+
+        function getAlmanacInfo(date) {
+            const fs = formatDate(date);
+            const md = fs.substring(5);
+            const holidayName = state.holidayPatch[fs] || "";
+            const sekkiName = sekki2026[md] || "";
+            const anni = state.settings.anniversaries?.find(a => a.date === md);
+            const dispHoliday = anni ? (holidayName ? `${holidayName} / ${anni.label}` : anni.label) : holidayName;
+            
+            let rokuyo = "";
+            let moonIcon = "wi-moon-new";
+            for (let i = lunarMonths2026.length - 1; i >= 0; i--) {
+                if (date >= lunarMonths2026[i].start) {
+                    const diffDays = Math.floor((date - lunarMonths2026[i].start) / 86400000);
+                    const lunarDay = diffDays + 1;
+                    const lunarMonth = lunarMonths2026[i].month;
+                    rokuyo = rokuyoNames[(lunarMonth + lunarDay) % 6];
+                    moonIcon = getMoonIcon(lunarDay);
+                    break;
+                }
             }
+            return { holidayName: dispHoliday, isHoliday: !!holidayName, rokuyo, sekkiName, moonIcon, isAnni: !!anni };
+        }
+
+        function getDateClass(date, alm) {
+            if (alm.isHoliday) return 'is-holiday';
+            if (alm.isAnni) return 'is-anniversary';
+            if (date.getDay() === 0) return 'is-sunday';
+            if (date.getDay() === 6) return 'is-saturday';
+            return '';
         }
 
         window.switchView = (v) => {
@@ -354,33 +401,22 @@
 
         function refreshUI() {
             if (!state.user) return;
-
-            // タブ制御
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('tab-active', b.id === `tab-${state.view}`));
-            
-            // ビュー表示制御
             document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
             document.getElementById(`view-${state.view}`).classList.add('active');
 
             const d = state.currentDate ? parseLocalDate(state.currentDate) : new Date();
-            const fs = state.currentDate;
-            const md = fs ? fs.substring(5) : "";
-            const isHoliday = fs ? !!state.holidayPatch[fs] : false;
-            const anni = state.settings.anniversaries?.find(a => a.date === md);
-            const holidayName = fs ? (state.holidayPatch[fs] || "") : "";
-            const dispHoliday = anni ? (holidayName ? `${holidayName} / ${anni.label}` : anni.label) : holidayName;
+            const alm = getAlmanacInfo(d);
+            const reiwa = d.getFullYear() - 2018;
             
-            els.jpHeader.innerHTML = `<span>${d.getMonth()+1}月</span><span>${d.getFullYear()}年</span>`;
+            els.jpHeader.innerHTML = `<span>${d.getMonth()+1}月</span><span>${d.getFullYear()}（令和${reiwa}）年</span>`;
 
             if (state.view === 'daily') {
-                const cls = isHoliday ? 'is-holiday' : (anni ? 'is-anniversary' : (d.getDay()===0?'is-sunday':(d.getDay()===6?'is-saturday':'')));
+                const cls = getDateClass(d, alm);
                 els.dateLabel.className = `daily-date-display font-bold text-3xl ${cls}`;
-                els.dateLabel.innerHTML = `${d.getDate()}日 ${isHoliday ? '<span class="jp-flag"></span>' : ''} <span class="text-xl opacity-40 font-normal ml-1">${dayNames[d.getDay()]}</span>`;
-                document.getElementById('daily-holiday-name').textContent = dispHoliday;
-                
-                const lunarBase = new Date(2026, 0, 19); 
-                const diff = Math.floor((d - lunarBase) / 86400000);
-                document.getElementById('daily-almanac').innerHTML = `<span>${rokuyoNames[Math.abs(diff % 6)]}</span><span class="text-lg opacity-70"><i class="wi wi-moon-alt-waxing-crescent-3"></i></span>`;
+                els.dateLabel.innerHTML = `${d.getDate()}日 ${alm.isHoliday ? '<span class="jp-flag"></span>' : ''} <span class="text-xl opacity-40 font-normal ml-1">${dayNames[d.getDay()]}</span>`;
+                document.getElementById('daily-holiday-name').textContent = alm.holidayName;
+                document.getElementById('daily-almanac').innerHTML = `<span>${alm.rokuyo}</span>${alm.sekkiName ? `<span>${alm.sekkiName}</span>` : ''}<span class="text-lg opacity-70"><i class="wi ${alm.moonIcon}"></i></span>`;
 
                 const data = state.allData[state.currentDate] || { mainObjective: "", note: "", todos: [] };
                 if (document.activeElement !== els.mainObj) els.mainObj.value = data.mainObjective || "";
@@ -398,14 +434,13 @@
             cont.innerHTML = '';
             for(let i=0; i<7; i++){
                 const cur = new Date(start); cur.setDate(cur.getDate()+i); 
-                const dStr = formatDate(cur); const mDay = dStr.substring(5);
-                const isHoliday = !!state.holidayPatch[dStr];
-                const anni = state.settings.anniversaries?.find(a => a.date === mDay);
-                const cls = isHoliday ? 'is-holiday' : (anni ? 'is-anniversary' : (cur.getDay()===0?'is-sunday':(cur.getDay()===6?'is-saturday':'')));
+                const dStr = formatDate(cur); 
+                const alm = getAlmanacInfo(cur);
+                const cls = getDateClass(cur, alm);
                 const card = document.createElement('div');
                 card.className = `bg-white/40 p-4 rounded border border-gray-100 transition-all ${dStr === todayStr ? 'is-today' : ''}`;
                 const main = (state.allData[dStr] || {}).mainObjective || "";
-                card.innerHTML = `<div class="flex justify-between items-start mb-2"><div class="cursor-pointer" onclick="window.goToDate('${dStr}')"><span class="text-xl font-black ${cls}">${cur.getDate()}</span><span class="text-[10px] font-black uppercase ${cls} ml-2">${dayNames[cur.getDay()]}</span>${isHoliday ? '<span class="jp-flag" style="transform:scale(0.8)"></span>' : ''}</div><span class="text-[8px] font-bold ${cls}">${anni ? anni.label : (state.holidayPatch[dStr] || "")}</span></div><input type="text" class="row-input w-full font-bold" value="${main}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
+                card.innerHTML = `<div class="flex justify-between items-start mb-2"><div class="cursor-pointer" onclick="window.goToDate('${dStr}')"><span class="text-xl font-black ${cls}">${cur.getDate()}</span><span class="text-[10px] font-black uppercase ${cls} ml-2">${dayNames[cur.getDay()]}</span>${alm.isHoliday ? '<span class="jp-flag" style="transform:scale(0.8)"></span>' : ''}</div><div class="flex flex-col text-right"><span class="text-[8px] font-bold ${cls}">${alm.holidayName}</span><span class="text-[7px] opacity-60">${alm.rokuyo} ${alm.sekkiName}</span></div></div><input type="text" class="row-input w-full font-bold" value="${main}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
                 cont.appendChild(card);
             }
         }
@@ -416,18 +451,18 @@
             const cont = document.getElementById('monthly-list-container');
             cont.innerHTML = '';
             for (let d = 1; d <= new Date(y, m + 1, 0).getDate(); d++) {
-                const cur = new Date(y, m, d), dStr = formatDate(cur); const mDay = dStr.substring(5);
-                const isHoliday = !!state.holidayPatch[dStr];
-                const anni = state.settings.anniversaries?.find(a => a.date === mDay);
-                const cls = isHoliday ? 'is-holiday' : (anni ? 'is-anniversary' : (cur.getDay()===0?'is-sunday':(cur.getDay()===6?'is-saturday':'')));
+                const cur = new Date(y, m, d), dStr = formatDate(cur); 
+                const alm = getAlmanacInfo(cur);
+                const cls = getDateClass(cur, alm);
                 const row = document.createElement('div');
                 row.className = `list-row ${cls} ${dStr === todayStr ? 'is-today' : ''}`;
                 const main = (state.allData[dStr] || {}).mainObjective || "";
-                row.innerHTML = `<div class="day-num cursor-pointer ${cls}" onclick="window.goToDate('${dStr}')">${d}</div><div class="day-name ${cls}">${dayNames[cur.getDay()]}</div><div class="day-almanac">${isHoliday ? '<span class="jp-flag" style="transform:scale(0.6)"></span>' : (anni ? '🎂' : '')}</div><input type="text" class="row-input font-bold" value="${main}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
+                row.innerHTML = `<div class="day-num cursor-pointer ${cls}" onclick="window.goToDate('${dStr}')">${d}</div><div class="day-name ${cls}">${dayNames[cur.getDay()]}</div><div class="day-almanac-col flex items-center gap-1">${alm.rokuyo}${alm.isHoliday ? '<span class="jp-flag" style="transform:scale(0.6)"></span>' : (alm.isAnni ? '🎂' : '')}</div><input type="text" class="row-input font-bold" value="${main}" placeholder="..." onchange="window.saveQuickPlan('${dStr}', this.value)">`;
                 cont.appendChild(row);
             }
         }
 
+        // --- Actions ---
         window.handleAuth = async () => {
             const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value;
             try {
@@ -438,20 +473,13 @@
         window.handleGoogleAuth = async () => {
             const googleProvider = new GoogleAuthProvider();
             googleProvider.setCustomParameters({ prompt: 'select_account' });
-            try { 
-                await signInWithPopup(authInstance, googleProvider); 
-            } catch (err) { 
-                console.error(err);
-                let msg = "Google認証に失敗しました。";
-                if (err.code === "auth/auth-domain-config-required") msg += "承認済みドメインの設定を確認してください。";
-                els.authError.innerHTML = `<span>${msg}</span><br><span class="text-[8px] opacity-60">${err.message}</span>`;
-            }
+            try { await signInWithPopup(authInstance, googleProvider); } catch (err) { els.authError.textContent = "Failed"; }
         };
         window.toggleAuthMode = () => {
             state.authMode = state.authMode === 'login' ? 'signup' : 'login';
             document.getElementById('auth-submit-btn').textContent = state.authMode === 'login' ? 'LOGIN' : 'SIGN UP';
         };
-        window.handleLogout = () => signOut(authInstance).then(() => { state.allData = {}; location.reload(); });
+        window.handleLogout = () => signOut(authInstance).then(() => location.reload());
 
         window.goToDate = (s) => { state.currentDate = s; state.view = 'daily'; refreshUI(); };
         window.openDatePicker = () => els.datePicker.showPicker();
