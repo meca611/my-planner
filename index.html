@@ -103,7 +103,7 @@
         .diary-area {
             font-family: 'Shippori Mincho', serif; line-height: 2.2;
             background-size: 100% 2.2em; background-image: linear-gradient(var(--line-color) 0.5px, transparent 0.5px);
-            background-attachment: local; padding: 0 15px; min-height: 250px; width: 100%;
+            background-attachment: local; padding: 0 15px; min-height: 90vh; width: 100%;
         }
 
         .is-sunday, .is-holiday { color: var(--holiday-red) !important; }
@@ -133,6 +133,7 @@
         
         .hidden { display: none !important; }
         #date-picker-hidden { position: absolute; opacity: 0; pointer-events: none; }
+        .crest-background { position: absolute; right: 15px; bottom: 70px; pointer-events: none; z-index: 1; opacity: 0.2; }
     </style>
 </head>
 <body>
@@ -162,7 +163,7 @@
                     <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285f4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184L12.048 13.56c-.408.273-.93.432-1.548.432-1.191 0-2.199-.806-2.557-1.889H4.912v2.335A8.997 8.997 0 0 0 9 18z" fill="#34a853"/><path d="M6.443 12.103c-.188-.564-.296-1.166-.296-1.79 0-.624.108-1.226.296-1.79V6.188H4.912a8.992 8.992 0 0 0 0 8.251l1.531-2.336z" fill="#fbbc05"/><path d="M9 4.009c1.322 0 2.509.454 3.441 1.345l2.582-2.58C13.463 1.155 11.427 0 9 0A8.997 8.997 0 0 0 4.912 2.335L6.443 4.67c.358-1.083 1.366-1.889 2.557-1.889z" fill="#ea4335"/></svg>
                     Googleでサインイン
                 </button>
-                <p id="auth-error-msg" class="text-[10px] text-red-500 mt-4 h-4"></p>
+                <p id="auth-error-msg" class="text-[10px] text-red-500 mt-4 h-auto text-center"></p>
                 <div onclick="window.toggleAuthMode()" id="auth-switch-text" class="text-[10px] text-accent-soft mt-6 cursor-pointer underline">新規登録はこちら</div>
             </div>
         </div>
@@ -181,7 +182,7 @@
                 <div class="jp-header" id="jp-header-text"></div>
                 
                 <!-- 日別ビュー -->
-                <div id="view-daily" class="view-container px-10">
+                <div id="view-daily" class="view-container hidden px-10">
                     <div class="flex justify-between items-end border-b border-gray-300 pb-3 mb-2">
                         <div class="flex items-baseline relative shrink-0">
                             <div id="date-label" class="daily-date-display font-bold text-3xl" onclick="window.openDatePicker()"></div>
@@ -198,7 +199,7 @@
                 </div>
 
                 <!-- 週間ビュー -->
-                <div id="view-weekly" class="view-container px-8">
+                <div id="view-weekly" class="view-container hidden px-8">
                     <div class="flex justify-between items-center mb-6">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="weekly-title" class="text-xs font-bold tracking-widest text-accent-soft uppercase">Week</h2>
@@ -208,8 +209,8 @@
                 </div>
 
                 <!-- 月間ビュー -->
-                <div id="view-monthly" class="view-container">
-                    <div class="px-10 mb-6 flex justify-between items-center">
+                <div id="view-monthly" class="view-container hidden px-2">
+                    <div class="px-8 mb-6 flex justify-between items-center">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="monthly-title" class="text-lg font-black border-b-2 border-accent-gold pb-1 px-4">Month</h2>
                         <button onclick="window.handleNext()" class="p-2 text-accent-soft">▶</button>
@@ -218,28 +219,14 @@
                 </div>
 
                 <!-- 設定ビュー -->
-                <div id="view-settings" class="view-container px-8 pt-5 text-center text-accent-soft">
+                <div id="view-settings" class="view-container hidden px-8 pt-5 text-center text-accent-soft">
                     <h3 class="text-[9px] font-black tracking-widest mb-6 uppercase">Color Themes</h3>
                     <div class="grid grid-cols-5 gap-4 mb-10" id="theme-selector">
                         <div class="theme-swatch active" onclick="setTheme('standard')" style="background: #1a202c;"></div><div class="theme-swatch" onclick="setTheme('midnight')" style="background: #1a2639;"></div><div class="theme-swatch" onclick="setTheme('forest')" style="background: #2d4a22;"></div><div class="theme-swatch" onclick="setTheme('sakura')" style="background: #fec5bb;"></div><div class="theme-swatch" onclick="setTheme('akane')" style="background: #7a1a1a;"></div><div class="theme-swatch" onclick="setTheme('sumizome')" style="background: #000000;"></div><div class="theme-swatch" onclick="setTheme('asagi')" style="background: #008b8b;"></div><div class="theme-swatch" onclick="setTheme('yamabuki')" style="background: #d97706;"></div><div class="theme-swatch" onclick="setTheme('kachiiro')" style="background: #0d1b2a;"></div><div class="theme-swatch" onclick="setTheme('uguisu')" style="background: #606c38;"></div>
                     </div>
-                    
-                    <div class="mb-10">
-                        <h3 class="text-[9px] font-black tracking-widest mb-6 uppercase">Anniversaries</h3>
-                        <div id="anniversary-list" class="mb-6 text-left"></div>
-                        <div class="bg-black/5 p-4 rounded flex flex-col gap-3">
-                            <div class="flex gap-2">
-                                <input type="text" id="anni-label" class="bg-white border-none rounded p-2 text-xs flex-grow" placeholder="例：誕生日">
-                                <input type="text" id="anni-date" class="bg-white border-none rounded p-2 text-xs w-24" placeholder="MM-DD">
-                            </div>
-                            <button onclick="window.addAnniversary()" class="bg-accent-gold text-white font-bold py-2 rounded text-[10px] tracking-widest">+ ADD</button>
-                        </div>
-                    </div>
-
-                    <div class="mt-10 pt-6 border-t border-gray-100">
-                        <button onclick="window.handleLogout()" class="text-xs font-bold text-red-400 tracking-widest uppercase italic">Logout</button>
-                        <p class="text-[7px] mt-4 uppercase opacity-50"><span id="user-email-disp">...</span></p>
-                    </div>
+                    <div class="mb-10 text-left"><h3 class="text-[9px] font-black tracking-widest mb-6 uppercase text-center">Anniversaries</h3><div id="anniversary-list" class="mb-6"></div><div class="bg-black/5 p-4 rounded flex flex-col gap-3"><div class="flex gap-2"><input type="text" id="anni-label" class="bg-white border-none rounded p-2 text-xs flex-grow" placeholder="例：誕生日"><input type="text" id="anni-date" class="bg-white border-none rounded p-2 text-xs w-24" placeholder="MM-DD"></div><button onclick="window.addAnniversary()" class="bg-accent-gold text-white font-bold py-2 rounded text-[10px] tracking-widest">+ ADD</button></div></div>
+                    <button onclick="window.handleLogout()" class="text-xs font-bold text-red-400 tracking-widest uppercase italic">Logout</button>
+                    <p class="text-[7px] mt-4 uppercase opacity-50"><span id="user-email-disp">...</span></p>
                 </div>
             </div>
 
@@ -258,13 +245,13 @@
         import { getFirestore, doc, setDoc, getDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
-              apiKey: "AIzaSyB-CKqjGBrl3239d2K0X4C9ceFA0tUhoDs",
+              apiKey: "AIzaSyCxT8fqy7VKmh-rl1rc-TtS2XZVVbnGJRI",
 			  authDomain: "pro-planner-a9405.firebaseapp.com",
-    		  projectId: "pro-planner-a9405",
+  			  projectId: "pro-planner-a9405",
   			  storageBucket: "pro-planner-a9405.firebasestorage.app",
   			  messagingSenderId: "930319488179",
-  			  appId: "1:930319488179:web:dbc0f9f2530fd6fe828cc6",
-              measurementId: "G-LTRFWPFH63"
+  			  appId: "1:930319488179:web:1fb676a32183f875828cc6",
+  			  measurementId: "G-Q9SYZ02NNX"
         };
 
         const state = {
@@ -289,7 +276,7 @@
 
         const dayNames = ['日', '月', '火', '水', '木', '金', '土'];
         const rokuyoNames = ["大安", "先勝", "友引", "先負", "仏滅", "赤口"];
-        const appId = "my-planner-pro-v2";
+        const appId = "my-planner-pro-v3";
         let db, authInstance;
 
         const els = {
@@ -303,6 +290,10 @@
             note: document.getElementById('note-area'),
             todo: document.getElementById('todo-list'),
             userEmail: document.getElementById('user-email-disp'),
+            authEmail: document.getElementById('auth-email'),
+            authPass: document.getElementById('auth-password'),
+            authBtn: document.getElementById('auth-submit-btn'),
+            authSwitch: document.getElementById('auth-switch-text'),
             authError: document.getElementById('auth-error-msg'),
             anniversaryList: document.getElementById('anniversary-list')
         };
@@ -334,6 +325,8 @@
                             refreshUI();
                         });
                     } else {
+                        state.user = null;
+                        state.allData = {};
                         els.loading.classList.add('hidden');
                         els.viewAuth.classList.remove('hidden');
                         els.appArea.classList.add('hidden');
@@ -341,7 +334,10 @@
                 });
 
                 if (els.datePicker) els.datePicker.onchange = (e) => window.goToDate(e.target.value);
-            } catch (err) { console.error(err); }
+            } catch (err) { 
+                console.error(err); 
+                document.getElementById('loading-text').textContent = "CONFIG ERROR: Firebase設定を確認してください";
+            }
         }
 
         window.switchView = (v) => {
@@ -358,10 +354,7 @@
         function refreshUI() {
             if (!state.user) return;
 
-            // タブ制御
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('tab-active', b.id === `tab-${state.view}`));
-            
-            // 重要：すべてのビューを一旦隠してから、今のビューだけを表示
             document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
             document.getElementById(`view-${state.view}`).classList.add('active');
 
@@ -430,9 +423,31 @@
             }
         }
 
-        // --- Helper functions ---
-        function parseLocalDate(s) { const p = s.split('-'); return new Date(p[0], p[1]-1, p[2]); }
-        function formatDate(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+        window.handleAuth = async () => {
+            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value;
+            try {
+                if (state.authMode === 'login') await signInWithEmailAndPassword(authInstance, e, p);
+                else await createUserWithEmailAndPassword(authInstance, e, p);
+            } catch (err) { els.authError.textContent = "Error: " + err.message; }
+        };
+        window.handleGoogleAuth = async () => {
+            const googleProvider = new GoogleAuthProvider();
+            googleProvider.setCustomParameters({ prompt: 'select_account' });
+            try { 
+                await signInWithPopup(authInstance, googleProvider); 
+            } catch (err) { 
+                console.error(err);
+                let msg = "Google認証に失敗しました。";
+                if (err.code === "auth/auth-domain-config-required") msg += "承認済みドメインの設定を確認してください。";
+                els.authError.innerHTML = `<span>${msg}</span><br><span class="text-[8px] opacity-60">${err.message}</span>`;
+            }
+        };
+        window.toggleAuthMode = () => {
+            state.authMode = state.authMode === 'login' ? 'signup' : 'login';
+            document.getElementById('auth-submit-btn').textContent = state.authMode === 'login' ? 'LOGIN' : 'SIGN UP';
+        };
+        window.handleLogout = () => signOut(authInstance).then(() => { state.allData = {}; location.reload(); });
+
         window.goToDate = (s) => { state.currentDate = s; state.view = 'daily'; refreshUI(); };
         window.openDatePicker = () => els.datePicker.showPicker();
         window.autoResize = (t) => { if(!t) return; t.style.height='auto'; t.style.height=t.scrollHeight+'px'; };
@@ -507,24 +522,6 @@
             await setDoc(doc(db, 'artifacts', appId, 'users', state.user.uid, 'dailyData', dStr), { mainObjective: text, updatedAt: Date.now() }, { merge: true });
         };
 
-        window.handleAuth = async () => {
-            const e = document.getElementById('auth-email').value, p = document.getElementById('auth-password').value;
-            try {
-                if (state.authMode === 'login') await signInWithEmailAndPassword(authInstance, e, p);
-                else await createUserWithEmailAndPassword(authInstance, e, p);
-            } catch (e) { els.authError.textContent = "認証失敗しました"; }
-        };
-        window.handleGoogleAuth = async () => {
-            const googleProvider = new GoogleAuthProvider();
-            googleProvider.setCustomParameters({ prompt: 'select_account' });
-            try { await signInWithPopup(authInstance, googleProvider); } catch (e) { els.authError.textContent = "Google認証失敗"; }
-        };
-        window.toggleAuthMode = () => {
-            state.authMode = state.authMode === 'login' ? 'signup' : 'login';
-            document.getElementById('auth-submit-btn').textContent = state.authMode === 'login' ? 'LOGIN' : 'SIGN UP';
-        };
-        window.handleLogout = () => signOut(authInstance).then(() => { state.allData = {}; location.reload(); });
-
         function renderTodos(todos) {
             if (document.activeElement && document.activeElement.closest('.todo-item')) return;
             els.todo.innerHTML = '';
@@ -535,6 +532,9 @@
             div.innerHTML = `<input type="checkbox" ${checked ? 'checked' : ''} onchange="window.debouncedSave()"><input type="text" class="ml-4 bg-transparent border-b border-transparent focus:border-accent-gold outline-none flex-grow text-sm font-bold text-main" value="${text}" placeholder="..." oninput="window.debouncedSave()">`;
             els.todo.appendChild(div);
         };
+
+        function formatDate(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+        function parseLocalDate(s) { const p = s.split('-'); return new Date(p[0], p[1]-1, p[2]); }
 
         start();
     </script>
