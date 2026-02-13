@@ -90,7 +90,7 @@
         }
         .tab-active { color: var(--cover-color); background: transparent; border-bottom: 3px solid var(--cover-color); }
 
-        /* ビューコンテナの設定 */
+        /* ビューコンテナの設定：デフォルト非表示、active クラスで表示 */
         .view-container { flex-grow: 1; padding-bottom: 40px; display: none; }
         .view-container.active { display: block; }
 
@@ -103,7 +103,7 @@
         .diary-area {
             font-family: 'Shippori Mincho', serif; line-height: 2.2;
             background-size: 100% 2.2em; background-image: linear-gradient(var(--line-color) 0.5px, transparent 0.5px);
-            background-attachment: local; padding: 0 15px; min-height: 90vh; width: 100%;
+            background-attachment: local; padding: 0 15px; min-height: 250px; width: 100%;
         }
 
         .is-sunday, .is-holiday { color: var(--holiday-red) !important; }
@@ -139,7 +139,7 @@
 <body>
 
     <!-- ロード画面 -->
-    <div id="loading" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white">
+    <div id="loading" class="fixed inset-0 z-[1000] flex flex-col items-center justify-center bg-white text-center">
         <div class="loader"></div>
         <div id="loading-text" class="mt-8 text-accent-gold font-bold tracking-[0.4em] animate-pulse text-[10px]">INITIALIZING...</div>
     </div>
@@ -179,10 +179,11 @@
             </div>
 
             <div class="page-content" id="page-body">
+                <div class="crest-background"><svg width="140" height="140" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="0.5" fill="none"/></svg></div>
                 <div class="jp-header" id="jp-header-text"></div>
                 
                 <!-- 日別ビュー -->
-                <div id="view-daily" class="view-container hidden px-10">
+                <div id="view-daily" class="view-container px-10">
                     <div class="flex justify-between items-end border-b border-gray-300 pb-3 mb-2">
                         <div class="flex items-baseline relative shrink-0">
                             <div id="date-label" class="daily-date-display font-bold text-3xl" onclick="window.openDatePicker()"></div>
@@ -199,7 +200,7 @@
                 </div>
 
                 <!-- 週間ビュー -->
-                <div id="view-weekly" class="view-container hidden px-8">
+                <div id="view-weekly" class="view-container px-8">
                     <div class="flex justify-between items-center mb-6">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="weekly-title" class="text-xs font-bold tracking-widest text-accent-soft uppercase">Week</h2>
@@ -209,7 +210,7 @@
                 </div>
 
                 <!-- 月間ビュー -->
-                <div id="view-monthly" class="view-container hidden px-2">
+                <div id="view-monthly" class="view-container px-2">
                     <div class="px-8 mb-6 flex justify-between items-center">
                         <button onclick="window.handlePrev()" class="p-2 text-accent-soft">◀</button>
                         <h2 id="monthly-title" class="text-lg font-black border-b-2 border-accent-gold pb-1 px-4">Month</h2>
@@ -219,7 +220,7 @@
                 </div>
 
                 <!-- 設定ビュー -->
-                <div id="view-settings" class="view-container hidden px-8 pt-5 text-center text-accent-soft">
+                <div id="view-settings" class="view-container px-8 pt-5 text-center text-accent-soft">
                     <h3 class="text-[9px] font-black tracking-widest mb-6 uppercase">Color Themes</h3>
                     <div class="grid grid-cols-5 gap-4 mb-10" id="theme-selector">
                         <div class="theme-swatch active" onclick="setTheme('standard')" style="background: #1a202c;"></div><div class="theme-swatch" onclick="setTheme('midnight')" style="background: #1a2639;"></div><div class="theme-swatch" onclick="setTheme('forest')" style="background: #2d4a22;"></div><div class="theme-swatch" onclick="setTheme('sakura')" style="background: #fec5bb;"></div><div class="theme-swatch" onclick="setTheme('akane')" style="background: #7a1a1a;"></div><div class="theme-swatch" onclick="setTheme('sumizome')" style="background: #000000;"></div><div class="theme-swatch" onclick="setTheme('asagi')" style="background: #008b8b;"></div><div class="theme-swatch" onclick="setTheme('yamabuki')" style="background: #d97706;"></div><div class="theme-swatch" onclick="setTheme('kachiiro')" style="background: #0d1b2a;"></div><div class="theme-swatch" onclick="setTheme('uguisu')" style="background: #606c38;"></div>
@@ -238,7 +239,7 @@
         </div>
     </div>
 
-    <!-- Firebase & Planner Logic -->
+    <!-- Firebase & Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -246,12 +247,12 @@
 
         const firebaseConfig = {
               apiKey: "AIzaSyCxT8fqy7VKmh-rl1rc-TtS2XZVVbnGJRI",
-			  authDomain: "pro-planner-a9405.firebaseapp.com",
-  			  projectId: "pro-planner-a9405",
-  			  storageBucket: "pro-planner-a9405.firebasestorage.app",
-  			  messagingSenderId: "930319488179",
-  			  appId: "1:930319488179:web:1fb676a32183f875828cc6",
-  			  measurementId: "G-Q9SYZ02NNX"
+  authDomain: "pro-planner-a9405.firebaseapp.com",
+  projectId: "pro-planner-a9405",
+  storageBucket: "pro-planner-a9405.firebasestorage.app",
+  messagingSenderId: "930319488179",
+  appId: "1:930319488179:web:1fb676a32183f875828cc6",
+  measurementId: "G-Q9SYZ02NNX"
         };
 
         const state = {
@@ -354,15 +355,19 @@
         function refreshUI() {
             if (!state.user) return;
 
+            // タブ制御
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('tab-active', b.id === `tab-${state.view}`));
+            
+            // ビュー表示制御
             document.querySelectorAll('.view-container').forEach(v => v.classList.remove('active'));
             document.getElementById(`view-${state.view}`).classList.add('active');
 
-            const d = parseLocalDate(state.currentDate);
-            const isHoliday = !!state.holidayPatch[state.currentDate];
-            const mDay = state.currentDate.substring(5);
-            const anni = state.settings.anniversaries?.find(a => a.date === mDay);
-            const holidayName = state.holidayPatch[state.currentDate] || "";
+            const d = state.currentDate ? parseLocalDate(state.currentDate) : new Date();
+            const fs = state.currentDate;
+            const md = fs ? fs.substring(5) : "";
+            const isHoliday = fs ? !!state.holidayPatch[fs] : false;
+            const anni = state.settings.anniversaries?.find(a => a.date === md);
+            const holidayName = fs ? (state.holidayPatch[fs] || "") : "";
             const dispHoliday = anni ? (holidayName ? `${holidayName} / ${anni.label}` : anni.label) : holidayName;
             
             els.jpHeader.innerHTML = `<span>${d.getMonth()+1}月</span><span>${d.getFullYear()}年</span>`;
